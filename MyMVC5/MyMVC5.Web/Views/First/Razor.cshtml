@@ -1,0 +1,19 @@
+﻿@using MyMVC5.Web.PipLine;
+@{
+    ViewBag.Title = "Razor";
+}
+
+<h2>Razor</h2>
+
+@Html.Br()
+
+@Html.Image("/Images/pass.png", "点击", "少时诵诗书所",
+                    new { @class = "classText", @style = "width:200px", @tt = "sss" }, "default")
+@Html.Br()
+@Html.Submit("提交")
+@Html.Br()
+@Html.Br()
+@Html.Br()
+@Html.Button("btnApp","查询","alert('查询');")
+@Html.Br()
+@Html.ActionLink("LinkText", "RazorShow")

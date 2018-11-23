@@ -1,0 +1,77 @@
+﻿
+@using MyMVC5.Web.Models;
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Index Pipe</h2>
+<p>
+    <input type="button" id="btnGetCors1" value="跨域Get1:3582" />
+    <input type="button" id="btnGetCors2" value="跨域Get2:19476" />
+</p>
+
+<table class="table">
+    <tr>
+        <th>No.</th>
+
+        <th>名称</th>
+
+        <th>详细类型名称</th>
+    </tr>
+    @foreach (SysEvent item in Model)
+    {
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.TypeName
+            </td>
+        </tr>
+    }
+</table>
+
+
+@section scripts{
+  <script>
+      $(function () {
+          //jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
+          var location = "http://localhost:3582/";
+        
+          $("#btnGetCors1").on("click", function () {
+              $.ajax({
+                  url: location + "api/values",
+                  type: "get",
+                  success: function (data) {
+                      alert(data);
+                  },
+                  error: function (result) {
+                      alert("出错了");
+                  },
+                  datatype: "json"
+              });
+          });
+
+          var location2 = "http://localhost:19476/";
+          $("#btnGetCors2").on("click", function () {
+              $.ajax({
+                  url: location2 + "api/values",
+                  type: "get",
+                  success: function (data) {
+                      alert(data);
+                  },
+                  error: function (result) {
+                      alert("出错了");
+                  },
+                  datatype: "json"
+              });
+          });
+      });
+
+    </script>
+}
+
+

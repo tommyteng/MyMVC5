@@ -1,0 +1,19 @@
+﻿@using MyMVC5.Web.Models;
+@{
+    ViewBag.Title = "Temp";
+    var tempUser = (CurrentUser)TempData["CurrentUser"];
+}
+
+<h2>Temp</h2>
+<div class="row">
+    <h3>ViewData["Id"]: @ViewData["Id"]</h3>
+    <h3>ViewData["Name"]: @ViewData["Name"]</h3>
+    @*<h3>ViewBag.CurrentUser.Account：@ViewBag.CurrentUser.Account</h3>
+    <h3>ViewBag.CurrentUser.Name：@ViewBag.CurrentUser.Name</h3>*@
+    @*<h3>ViewBag.CurrentUser.Tommy：@ViewBag.CurrentUser.Tommy</h3>*@
+    <h3>ViewBag.Name：@ViewBag.Name</h3>
+    <h3>ViewBag.Millor：@ViewBag.Millor</h3>
+    <h3>TempData["Name"]:@TempData["Name"]</h3>
+    <h3>TempData["CurrentUser"]的Account:@tempUser.Account</h3>
+    <h3>TempData["Time"]:@TempData["Time"]</h3>
+</div>

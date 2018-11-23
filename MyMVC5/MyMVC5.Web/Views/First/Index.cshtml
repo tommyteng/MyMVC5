@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "First-Index";
+
+}
+<h2>Index</h2>
+@ViewBag.Title   @*单行*@
+<h3>@ViewBag.Title</h3>  @*这里是行内 不是单行*@
+<h3>@{string time = DateTime.Now.ToString();}</h3>
+<h3>
+    @time
+</h3>
+<p>
+    @{
+        string name = "天外天";
+        string student = "天天";
+        int i = 1;
+        if (i == 1)
+        {
+           <p>i==1</p>
+         }
+
+    int k = 2;
+    @:这里是k==2
+    int m = i + k;
+    <text>
+        int k = 2;
+        int k = 2;
+        k++;;;;;
+    </text>
+    }
+    @if (m > 2)
+    {
+        Console.WriteLine(m);
+        base.Response.Write(string.Format("This is {0}", m));
+    }
+    </p>

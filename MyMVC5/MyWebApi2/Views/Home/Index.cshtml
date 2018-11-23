@@ -1,0 +1,62 @@
+﻿<div class="row">
+    <div class="col-md-5">
+        <h2>MyWebApi2 </h2>
+        <p>
+            <input type="button" id="btnGetCors1" value="跨域Get1:3582" />
+            <input type="button" id="btnGetCors2" value="跨域Get2:3582" />
+            <input type="button" id="btnGetCors3" value="跨域Get3:16202" />
+        </p>
+    </div>
+</div>
+@section scripts{
+    <script>
+      $(function () {
+          //jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
+          var location = "http://localhost:3582/";
+
+          $("#btnGetCors1").on("click", function () {
+              $.ajax({
+                  url: location + "api/values",
+                  type: "get",
+                  success: function (data) {
+                      alert(data);
+                  },
+                  error: function (result) {
+                      alert("出错了");
+                  },
+                  datatype: "json"
+              });
+          });
+
+          $("#btnGetCors2").on("click", function () {
+              $.ajax({
+                  url: location + "api/users",
+                  type: "get",
+                  success: function (data) {
+                      alert(JSON.stringify(data));
+                  },
+                  error: function (result) {
+                      alert("出错了");
+                  },
+                  datatype: "json"
+              });
+          });
+
+          var location2 = "http://localhost:16202/";
+          $("#btnGetCors3").on("click", function () {
+              $.ajax({
+                  url: location2 + "api/values/v1",
+                  type: "get",
+                  success: function (data) {
+                      alert(data);
+                  },
+                  error: function (result) {
+                      alert("出错了");
+                  },
+                  datatype: "json"
+              });
+          });
+      });
+
+    </script>
+}
