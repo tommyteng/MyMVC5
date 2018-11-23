@@ -8,7 +8,9 @@ using System.Web.Http;
 namespace MyMVC5.Web.Controllers
 {
     /// <summary>
-    /// Values
+    /// 第三讲： 
+    /// webapi初识：
+    /// restful风格，特性路由，get、post、put、delete参数传值和接收的各种方式
     /// </summary>
 
     public class ValuesController : ApiController

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace MyMVC5.Web.Controllers
 {
     /// <summary>
-    /// MVC5路由、区域、传值、razor、扩展控件
+    /// 第二讲： MVC5路由、区域、传值、razor、扩展控件等
     /// </summary>
     public class FirstController : Controller
     {

@@ -10,8 +10,8 @@ namespace MyMVC5.Web.Controllers
 {
 
     /// <summary>
-    ///  今天讨论的问题：
-    /// 1、在浏览器输入 http://www.baidu.com 到浏览器响应 这期间都发生了什么？
+    ///  第一讲今天讨论的问题：
+    ///1、在浏览器输入 http://www.baidu.com 到浏览器响应 这期间都发生了什么？
     ///2、.net核心运行机制：.net framework 是怎么处理http请求的？
     /// </summary>
     public class HomeController : Controller
