@@ -6,6 +6,13 @@
 
 <h2>Index Pipe</h2>
 <p>
+    <input type="text" id="txtName" name="name" />
+    <input type="password" id="txtPwd" name="pwd" />
+    <input type="button" id="btnLogin" value="login" />
+    <input type="button" id="btnTest" value="Test" />
+</p>
+
+<p>
     <input type="button" id="btnGetCors1" value="跨域Get1:3582" />
     <input type="button" id="btnGetCors2" value="跨域Get2:19476" />
 </p>
@@ -36,40 +43,111 @@
 
 
 @section scripts{
-  <script>
-      $(function () {
-          //jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
-          var location = "http://localhost:3582/";
-        
-          $("#btnGetCors1").on("click", function () {
-              $.ajax({
-                  url: location + "api/values",
-                  type: "get",
-                  success: function (data) {
-                      alert(data);
-                  },
-                  error: function (result) {
-                      alert("出错了");
-                  },
-                  datatype: "json"
-              });
-          });
+    <script>
+        $(function () {
+            jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
+            var location = "http://localhost:3582/";
 
-          var location2 = "http://localhost:19476/";
-          $("#btnGetCors2").on("click", function () {
-              $.ajax({
-                  url: location2 + "api/values",
-                  type: "get",
-                  success: function (data) {
-                      alert(data);
-                  },
-                  error: function (result) {
-                      alert("出错了");
-                  },
-                  datatype: "json"
-              });
-          });
-      });
+            $("#btnGetCors1").on("click", function () {
+                $.ajax({
+                    url: location + "api/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert("出错了");
+                    },
+                    datatype: "json"
+                });
+            });
+
+            var location2 = "http://localhost:19476/";
+            $("#btnGetCors2").on("click", function () {
+                $.ajax({
+                    url: location2 + "api/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert("出错了");
+                    },
+                    datatype: "json"
+                });
+            });
+
+            /* form
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: location+"api/login",
+                    type: "get",
+                    data: { name: $("#txtName").val(), pwd: $("#txtPwd").val() },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseJSON.Message);
+                    },
+                    datatype: "json"
+                });
+            });
+
+
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: location+"api/login/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            }); */
+
+
+            /* jwt */
+            var jwtToken;
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: location +"api/jwt/login",
+                    type: "post",
+                    data: { UserName: $("#txtName").val(), Password: $("#txtPwd").val() },
+                    success: function (data) {
+                        if (data.Success) {
+                            jwtToken = data.Token;
+                            alert("登录成功");
+                        }
+                        else {
+                            alert("用户名或密码错误");
+                        }
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: location +"api/jwt/login",
+                    type: "get",
+                    headers: { "auth": jwtToken },//通过请求头来发送token，放弃了通过cookie的发送方式
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });
+
+        });
+
 
     </script>
 }

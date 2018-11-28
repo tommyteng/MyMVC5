@@ -1,6 +1,14 @@
 ﻿<div class="row">
     <div class="col-md-5">
         <h2>MyWebApi1 </h2>
+
+        <p>
+            <input type="text" id="txtName" name="name" />
+            <input type="password" id="txtPwd" name="pwd" />
+            <input type="button" id="btnLogin" value="login" />
+            <input type="button" id="btnTest" value="Test" />
+        </p>
+
         <p><input type="text" id="txtId" name="id" value="1" /> </p>
         <p>
             <input type="button" id="btnGet1" value="Get1" />
@@ -12,7 +20,7 @@
             <input type="button" id="btnGet7" value="Get7" />
             <input type="button" id="btnGet8" value="Get8" />
             <input type="button" id="btnGet9" value="Get9" />
-            
+
         </p>
 
         <p>
@@ -38,10 +46,10 @@
         </p>
         <p>
             @*原因：同源策略：出于安全考虑，浏览器会限制脚本中发起的跨站请求，浏览器要求JavaScript或Cookie只能访问同域下的内容。
-    CORS全称Cross-Origin Resource Sharing，中文全称跨域资源共享,
-    它解决跨域问题的原理是通过向http的请求报文和响应报文里面加入相应的标识告诉浏览器它能访问哪些域名的请求。
-     如我们向响应报文里面增加这个Access-Control-Allow-Origin:http://localhost:8081，就表示支持http://localhost:8081里面的所有请求访问系统资源。
-     https://www.cnblogs.com/landeanfen/p/5177176.html*@
+            CORS全称Cross-Origin Resource Sharing，中文全称跨域资源共享,
+            它解决跨域问题的原理是通过向http的请求报文和响应报文里面加入相应的标识告诉浏览器它能访问哪些域名的请求。
+             如我们向响应报文里面增加这个Access-Control-Allow-Origin:http://localhost:8081，就表示支持http://localhost:8081里面的所有请求访问系统资源。
+             https://www.cnblogs.com/landeanfen/p/5177176.html*@
             <input type="button" id="btnGetCors1" value="跨域Get1:16202" />
             <input type="button" id="btnGetCors2" value="跨域Get2:19476" />
             <input type="button" id="btnGet" value="Get" />
@@ -298,7 +306,7 @@
             });
 
 
-            //jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
+            jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
             var location = "http://localhost:16202/";
             $("#btnGetCors1").on("click", function () {
                 $.ajax({
@@ -338,6 +346,153 @@
                     },
                     error: function (result) {
                         alert("出错了");
+                    },
+                    datatype: "json"
+                });
+            });
+
+
+            /* form
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: "/api/login",
+                    type: "get",
+                    data: { name: $("#txtName").val(), pwd: $("#txtPwd").val() },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseJSON.Message);
+                    },
+                    datatype: "json"
+                });
+            });
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: "/api/login/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });*/
+
+            /* basic 
+            var Ticket;
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: "/api/login2",
+                    type: "get",
+                    data: { name: $("#txtName").val(), pwd: $("#txtPwd").val() },
+                    success: function (data) {
+                        if (data.bRes) {
+                            Ticket = data.Ticket;
+                            alert("登录成功");
+                        }
+                        else {
+                            alert("用户名或密码错误");
+                        }
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: "/api/login2/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    beforeSend: function (xhr) {
+                        //发送ajax请求之前向http的head里面加入验证信息
+                        xhr.setRequestHeader("Authorization", "BasicAuth " + Ticket);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });*/
+
+
+            /* digest 
+            var dTicket;
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: "/api/login3",
+                    type: "get",
+                    data: { name: $("#txtName").val(), pwd: $("#txtPwd").val() },
+                    success: function (data) {
+                        if (data.bRes) {
+                            dTicket = data.Ticket;
+                            alert("登录成功");
+                        }
+                        else {
+                            alert("用户名或密码错误");
+                        }
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: "/api/login3/values",
+                    type: "get",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", "DigestAuth " + dTicket);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });*/
+
+            /* jwt */
+            var jwtToken;
+            $("#btnLogin").on("click", function () {
+                $.ajax({
+                    url: "/api/jwt/login",
+                    type: "post",
+                    data: { UserName: $("#txtName").val(), Password: $("#txtPwd").val() },
+                    success: function (data) {
+                        if (data.Success) {
+                            jwtToken = data.Token;
+                            alert("登录成功");
+                        }
+                        else {
+                            alert("用户名或密码错误");
+                        }
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
+                    },
+                    datatype: "json"
+                });
+            });
+            $("#btnTest").on("click", function () {
+                $.ajax({
+                    url: "/api/jwt/login",
+                    type: "get",
+                    headers: { "auth": jwtToken },//通过请求头来发送token，放弃了通过cookie的发送方式
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (result) {
+                        alert(result.responseText);
                     },
                     datatype: "json"
                 });

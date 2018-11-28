@@ -17,6 +17,9 @@ namespace MyWebApi.Controllers
     public class UsersController : ApiController
     {
         private List<Users> _userList = null;
+        /// <summary>
+        /// 构造
+        /// </summary>
         public UsersController()
         {
             this._userList = new List<Users>

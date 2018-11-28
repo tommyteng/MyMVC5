@@ -11,7 +11,7 @@
 @section scripts{
     <script>
       $(function () {
-          //jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
+          jQuery.support.cors = true;  //解决ie9以下浏览器对cors支持问题
           var location = "http://localhost:3582/";
 
           $("#btnGetCors1").on("click", function () {

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
-using System.Configuration;
+using MyWebApi.App_Start;
 
 namespace MyWebApi
 {
@@ -47,6 +46,38 @@ namespace MyWebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.MessageHandlers.Add(new HttpDigestAuthenticationHandler()); //添加消息处理到管道中
         }
     }
+
+    #region //session
+    //public class WebApiSessionRouteHandler : HttpControllerRouteHandler
+    //{
+    //    protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
+    //    {
+    //        return new WebApiSessionControllerHandler(requestContext.RouteData);
+    //    }
+    //}
+
+    //public class WebApiSessionControllerHandler : HttpControllerHandler, IRequiresSessionState
+    //{
+    //    public WebApiSessionControllerHandler(RouteData routeData) : base(routeData) { }
+    //}
+
+    //public static class HttpRouteExtensions
+    //{
+    //    public static Route MapHttpRoute(this RouteCollection routes, string name, string routeTemplate, object defaults, IRouteHandler routeHandler)
+    //    {
+    //        object constraints = null;
+    //        HttpMessageHandler handler = null;
+    //        var route = routes.MapHttpRoute(name, routeTemplate, defaults, constraints, handler);
+    //        if (routeHandler != null)
+    //        {
+    //            route.RouteHandler = routeHandler;
+    //        }
+    //        return route;
+    //    }
+    //}
+    #endregion
 }

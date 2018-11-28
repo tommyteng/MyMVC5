@@ -18,6 +18,17 @@ namespace MyWebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //WebApi默认是没有开启Session，开启支持的方式是：
+            //1、
+        }
+
+        //1、
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += (sender, e) =>
+                 HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
+            base.Init();
         }
     }
 }
